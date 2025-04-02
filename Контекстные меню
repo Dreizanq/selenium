@@ -1,0 +1,34 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+browser = webdriver.Chrome()
+browser.get("https://parsinger.ru/selenium/7/7.3.4/index.html")
+
+# Находим элемент для контекстного клика
+context_area = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.ID, 'context-area'))
+)
+
+# Выполняем ПРАВЫЙ клик на элементе
+actions = ActionChains(browser)
+actions.context_click(context_area).perform()
+
+# Находим элемент "get_password" в контекстном меню
+get_password_link = WebDriverWait(browser, 10).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.menu-item[data-action="get_password"]'))
+)
+
+# Кликаем на "get_password"
+get_password_link.click()
+
+# Ожидаем появления элемента с паролем
+password = WebDriverWait(browser, 10).until(
+    EC.visibility_of_element_located((By.ID, 'password'))
+)
+
+print(password.text)
+
+browser.quit()
