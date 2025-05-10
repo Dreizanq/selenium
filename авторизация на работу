@@ -16,12 +16,12 @@ service = Service(ChromeDriverManager().install())
 browser = webdriver.Chrome(service=service, options=options)
 
 try:
-    browser.get("#log#")
+    browser.get("https://www.yclients.com/signin")
 
     email_input = browser.find_element(By.XPATH, '//*[@id="onboarding"]/div[2]/div/div/form/div[2]/div[1]/div/div[1]/input')
     email_input.click()
     email_input.clear()
-    email_input.send_keys('a.pavlov@yclients.tech')
+    email_input.send_keys('#log#')
 
     password_input = browser.find_element(By.XPATH, '//*[@id="onboarding"]/div[2]/div/div/form/div[2]/div[2]/div/div[1]/input')
     password_input.click()
