@@ -1,0 +1,38 @@
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from webdriver_manager.chrome import ChromeDriverManager
+
+options = webdriver.ChromeOptions()
+options.add_argument('--ignore-certificate-errors')
+options.add_argument('--ignore-ssl-errors')
+options.add_argument('--allow-insecure-localhost')
+
+service = Service(ChromeDriverManager().install())
+browser = webdriver.Chrome(service=service, options=options)
+
+try:
+    browser.get("#log#")
+
+    email_input = browser.find_element(By.XPATH, '//*[@id="onboarding"]/div[2]/div/div/form/div[2]/div[1]/div/div[1]/input')
+    email_input.click()
+    email_input.clear()
+    email_input.send_keys('a.pavlov@yclients.tech')
+
+    password_input = browser.find_element(By.XPATH, '//*[@id="onboarding"]/div[2]/div/div/form/div[2]/div[2]/div/div[1]/input')
+    password_input.click()
+    password_input.clear()
+    password_input.send_keys('#pass#')
+
+    login_button = browser.find_element(By.XPATH, '//button[@type="submit"]')
+    login_button.click()
+
+    time.sleep(5)
+
+finally:
+    browser.quit()
+    browser.quit()
